@@ -62,14 +62,72 @@ public class Deck{
 			swapCards(i,li);
 		}
 	}
+
+	//merge sort
+	//sub deck helper method
+	public Deck subDeck(int low, int high){
+		Deck sub = new Deck(high - low + 1);
+		for(int i = 0; i < sub.cards.length; i++){
+			sub.cards[i] = this.cards[i];
+		}
+		return sub;
+	}
+
+	//merge deck
+	public Deck mergeDeck(Deck d1, Deck d2){
+		Deck d3 = new Deck(d1.cards.length + d2.cards.length);
+		int i = 0;
+		int j = 0;
+
+		for(int k = 0; k < d3.cards.length; k++){
+			//check if top card in d1 is empty - then add first d2 to d3
+			if(i > d1.cards.length-1 && j < d2.cards.length)
+			{
+				d3.cards[k] = d2.cards[j];
+				j++;
+			}
+			else if(i < d1.cards.length && j > d2.cards.length-1)
+			{//check if top card in d2 is empty - then add first of d1 to d3
+				d3.cards[k] = d1.cards[i];
+				i++;
+			}
+			else //else compare and add lower of the two to d3
+			{
+				if(d1.cards[i].compareTo(d2.cards[j]) == -1){
+					d3.cards[k] = d1.cards[i];
+					i++;
+				}
+				else{
+					d3.cards[k] = d2.cards[j];
+					j++;
+				}
+			}
+		}
+		return d3;
+	}
+
+	//almost merge sort
+	public Deck mergeSort(){
+		System.out.println(this.cards.length);
+		//add base cases - 0 or 1 cards cant be out of order
+		if(this.cards.length <= 1) return this;
+		//split deck in half
+		int half = this.cards.length / 2;
+		Deck d1 = this.subDeck(0,half-1);
+		Deck d2 = this.subDeck(half, this.cards.length - 1);
+		Deck sortedD1 = d1.mergeSort();
+		Deck sortedD2 = d2.mergeSort();
+		Deck sortedDeck = mergeDeck(sortedD1, sortedD2);
+		return sortedDeck;
+	}
 	public static void main(String args[]){
 		Deck d = new Deck();
 		d.print();
 		d.shuffle();
 		System.out.println("After shuffle:********");
 		d.print();
-		d.selectionSort();
-		System.out.println("After selection sort:********");
+		d.mergeSort();
+		System.out.println("After sort:********");
 		d.print();
 	}
 }
