@@ -63,6 +63,14 @@ public class Deck{
 		}
 	}
 
+	public void insertionSort(){
+		for(int i = 1; i < this.cards.length; i++){
+			for(int k = i; k > 0 ; k--){
+				if(this.cards[k].compareTo(this.cards[k-1]) == -1)
+					swapCards(k, k-1);
+			}
+		}
+	}
 	//merge sort
 	//sub deck helper method
 	public Deck subDeck(int low, int high){
@@ -131,7 +139,7 @@ public class Deck{
 		d.shuffle();
 		System.out.println("After shuffle:********");
 		d.print();
-		d.selectionSort();
+		d.insertionSort();
 		System.out.println("After sort:********");
 		d.print();
 	}
