@@ -112,12 +112,17 @@ public class Deck{
 		//add base cases - 0 or 1 cards cant be out of order
 		if(this.cards.length <= 1) return this;
 		//split deck in half
-		int half = this.cards.length / 2;
-		Deck d1 = this.subDeck(0,half-1);
-		Deck d2 = this.subDeck(half, this.cards.length - 1);
-		Deck sortedD1 = d1.mergeSort();
-		Deck sortedD2 = d2.mergeSort();
-		Deck sortedDeck = mergeDeck(sortedD1, sortedD2);
+		int l = 0;
+		int r = this.cards.length - 1;
+		Deck sortedDeck = new Deck(this.cards.length);
+		if(l < r){
+			int half = (l + (r-l)/2);
+			Deck d1 = this.subDeck(l,half);
+			Deck d2 = this.subDeck(half, r);
+			Deck sortedD1 = d1.mergeSort();
+			Deck sortedD2 = d2.mergeSort();
+			sortedDeck = mergeDeck(sortedD1, sortedD2);
+		}
 		return sortedDeck;
 	}
 	public static void main(String args[]){
