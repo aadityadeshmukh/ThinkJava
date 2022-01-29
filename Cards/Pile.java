@@ -45,21 +45,45 @@ public class Pile{
 		while(!p1.isEmpty() && !p2.isEmpty()){
 			Card c1 = p1.popCard();
 			Card c2 = p2.popCard();
-			//System.out.println(c1 + "vs" + c2);
-			if(c1.compareTo(c2) == -1){
+			int diff = c1.getRank() - c2.getRank();
+			if(diff > 0){
 				p2.addCard(c1);
 				p2.addCard(c2);
 			}
-			else if(c1.compareTo(c2) == 1){
+			else if(diff < 0){
 				p1.addCard(c1);
 				p1.addCard(c2);
 			}
 			else
 			{
-				System.out.println("Tie!");
+				Pile temp = new Pile();
+				temp.addCard(c1);
+				temp.addCard(c2);
+				int comp = 0;
+				while(comp != 0){
+					if(p1.cards.size() < 4 || p2.cards.size() < 4) break;
+					for(int i = 0; i < 3; i++){
+						temp.addCard(p1.popCard());
+						temp.addCard(p2.popCard());
+					}
+					Card tempc14 =  p1.popCard();
+					Card tempc24 =  p1.popCard();
+					temp.addCard(tempc14);
+					temp.addCard(tempc24);
+					comp = tempc14.getRank() - tempc24.getRank();
+				}
+				
+				if(comp > 1){
+					while(!temp.isEmpty()){
+						p2.addCard(temp.popCard());
+					}
+				}else{
+					while(!temp.isEmpty()){
+						p1.addCard(temp.popCard());
+					}
+				}
 			}
 		}
-
 		if(p1.isEmpty()){
 			System.out.println("p2 wins!");
 		}
