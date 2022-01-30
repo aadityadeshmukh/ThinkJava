@@ -1,9 +1,10 @@
 import java.util.Random;
-public class Deck{
+public class Deck extends CardCollection{
 	private Card[] cards;
 
 	//default constructor for a standard 52 card deck
 	public Deck(){
+		super("Deck");
 		this.cards = new Card[52];
 		int index = 0;
 		for(int i = 0; i < 4; i++){
@@ -16,6 +17,7 @@ public class Deck{
 
 	//constructor for creating a deck for n cards
 	public Deck(int n){
+		super("Deck");
 		this.cards = new Card[n];
 	}
 
@@ -29,7 +31,6 @@ public class Deck{
 		}
 	}
 	public static int randomInt(int low, int high){
-		Random r = new Random();
 		int rand = low + (int)(Math.random() * (high-low));
 		return rand;
 	}
