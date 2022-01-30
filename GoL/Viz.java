@@ -39,4 +39,19 @@ public class Viz extends Canvas{
 	public void paint(Graphics g){
 		draw(g);
 	}
+
+	public int numRows(){
+		return grid.length;
+	}
+
+	public int numCols(){
+		return grid[0].length;
+	}
+
+	public Cell getCell(int r, int c){
+		return grid[r][c];
+	}
+	public void turnOn(int r, int c){
+		grid[r][c].turnOn();
+	}
 }
