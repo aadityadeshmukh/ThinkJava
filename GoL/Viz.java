@@ -43,4 +43,16 @@ public class Viz extends Canvas{
 	public void turnOn(int r, int c){
 		grid[r][c].turnOn();
 	}
+
+	public int test(int r, int c){
+		try{
+			if(grid[r][c].isOn())
+				return 1;
+		}catch(ArrayIndexOutOfBoundsException e){
+			
+		}
+		return 0;
+	}
+
+	
 }
