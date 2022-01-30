@@ -54,5 +54,14 @@ public class Viz extends Canvas{
 		return 0;
 	}
 
-	
+	public int countOn(){
+		int population = 0;
+		for(int i = 0; i < grid.length; i++){
+			for(int j = 0; j < grid[0].length; j++){
+				if(grid[i][j].isOn())
+					population++;
+			}
+		}
+		return population;
+	}
 }
